@@ -1,0 +1,37 @@
+GET http://localhost:3003/api/blogs
+
+###
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRvbnlTIiwiaWQiOiI2MmRlODIzZjZlNDk2MjgwZDI3OTkzOTEiLCJpYXQiOjE2NTg5MjE3MjJ9.MmIVAbuiAv7xe2XYfBBP9siP8L3jcTRmZ8P56-TUHOQ
+
+{
+  "title": "Authorization with JWT",
+  "author": "Tom Hanks",
+  "url": "http:/localhost:3003",
+  "likes": 100
+}
+###
+PUT http://localhost:3003/api/blogs/62cab87378566c1bb8887fb5
+Content-Type: application/json
+
+{
+  "title": "whatever",
+  "author": "Tom Hanks",
+  "url": "http:/localhost:3000",
+  "likes": -2,
+  "__v": 0,
+  "_id": "62cab87378566c1bb8887fb5"
+}
+
+###
+DELETE http://localhost:3003/api/blogs/62dfb1b823133427fc719bf9
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRvbnlTIiwiaWQiOiI2MmRlODIzZjZlNDk2MjgwZDI3OTkzOTEiLCJpYXQiOjE2NTg5MjE3MjJ9.MmIVAbuiAv7xe2XYfBBP9siP8L3jcTRmZ8P56-TUHOQ
+
+###
+POST http://localhost:3003/api/blogs/632862134e36c418d6e85653/comments
+Content-Type: application/json
+
+{
+  "content": "nice pog3"
+}
