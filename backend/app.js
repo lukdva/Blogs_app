@@ -9,7 +9,9 @@ const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
 const {info, error} = require('./utils/logger');
 const middleware = require('./utils/middleware');
-const testingRouter = require('./controllers/testing')
+const testingRouter = require('./controllers/testing');
+const swaggerUi = require('swagger-ui-express');
+const specs = require('./swagger')
 
 info('connecting to MongoDB')
 
@@ -29,6 +31,7 @@ app.use('/api/login', loginRouter)
 app.use('/api/users', usersRouter);
 app.use('/api/blogs', blogRouter);
 app.use('/api/testing', testingRouter)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use(middleware.handleBadRequests);
 
 module.exports = app;

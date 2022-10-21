@@ -5,6 +5,139 @@ const User = require('../models/user')
 const middleware = require('../utils/middleware')
 const Comment = require('../models/comment')
 
+/**
+ * @swagger
+ * /api/blogs:
+ *  get:
+ *    description: Get all blogs
+ *    responses:
+ *      '200':
+ *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                type: object
+ *                $ref: '#/components/schemas/BlogResponseBody'
+ *    tags:
+ *      - Blogs
+ *  post:
+ *    security:
+ *      - bearerAuth: []
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/BlogRequestBody'
+ *            
+ *    responses:
+ *      '201':
+ *        description: Successfully created Blog
+ *        content:
+ *          application/json:
+ *            schema: 
+ *              $ref: '#/components/schemas/BlogResponseBody'
+ *      '400':
+ *        description: Missing url or title
+ *      '401':
+ *        description: Authorization information is missing or invalid.
+ *    tags:
+ *      - Blogs
+ */
+/**
+ * @swagger
+ * /api/blogs/{id}:
+ *  delete:
+ *    security:
+ *      - bearerAuth: []
+ *    description: Get all blogs
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: ID of blog to be deleted
+ *    responses:
+ *      '204':
+ *        description: Blog successfully deleted
+ *      '401':
+ *        description: User can delete only his own blogs or user is unauthorized
+ *      '404':
+ *        description: Blog not found for provided id
+ *    tags:
+ *      - Blogs
+ *  put:
+ *    security:
+ *      - bearerAuth: []
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: ID of blog to be edited
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/BlogRequestBody'
+ *            
+ *    responses:
+ *      '200':
+ *        description: Successfully edited Blog
+ *        content:
+ *          application/json:
+ *            schema: 
+ *              $ref: '#/components/schemas/BlogResponseBody'
+ *      '400':
+ *        description: Cannot set likes < 0
+ *      '401':
+ *        description: Authorization information is missing or invalid.
+ *      '404':
+ *        description: Blog not found for provided id
+ *    tags:
+ *      - Blogs
+ */
+/**
+ * @swagger
+ * /api/blogs/{id}/comments:
+ *  post:
+ *    security:
+ *      - bearerAuth: []
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: ID of blog which will receive comment
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/CommentBase'
+ *            
+ *    responses:
+ *      '200':
+ *        description: Successfully added comment
+ *        content:
+ *          application/json:
+ *            schema: 
+ *              $ref: '#/components/schemas/CommentResponse'
+ *      '400':
+ *        description: Content is mandatory
+ *      '401':
+ *        description: Authorization information is missing or invalid.
+ *      '404':
+ *        description: Blog not found for provided id
+ *    tags:
+ *      - Comments
+ */
 blogsRouter.get('/', async (request, response, next) => {
     const blogs = await Blog.find({}).populate('user', {username:1, name:1, id:1}).populate('comments', {content:1, id:1});
     response.json(blogs);
