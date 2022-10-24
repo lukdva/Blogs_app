@@ -20,6 +20,7 @@ Technologies used:
 - `npm run dev` Runs program with nodemon which restarts app after saving changes to source code 
 - `npm start` Starts program regularly
 - `npm run test` Runs unit and api tests 
+- `npm run start:test` Starts program in test mode (Uses test database, run this before running cypress tests)
 
 ### Documentation
 After running the program you can find swagger documentation on `/api-docs` endpoint
