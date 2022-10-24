@@ -5,6 +5,9 @@ This is a REST api which provides CRUD operations for blog entity and means for 
 Technologies used:
 - Express
 - Mongoose
+- Jest
+- Supertest
+- JWT
 ### Setup
 - Create .env file in backend folder.  
 - Setup variables which are presented in .env.example file.  
